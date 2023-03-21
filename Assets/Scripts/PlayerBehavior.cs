@@ -56,6 +56,12 @@ public class PlayerBehavior : MonoBehaviour
             rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
         }
 
+        if (controls.Player.Attack.WasPerformedThisFrame())
+        {
+            anim.Play("Kitty Light Attack");
+        }
+        
+
         anim.SetBool("isGrounded", IsGrounded());
     }
     // Update is called once per frame
