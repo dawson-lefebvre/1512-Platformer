@@ -11,7 +11,7 @@ public class PlayerBehavior : MonoBehaviour
     SpriteRenderer spriteRenderer;
     BoxCollider2D bc;
     Vector2 MoveVector;
-    [SerializeField] float MoveSpeed = 20f, JumpForce = 50f, MaxSpeed = 10f;
+    [SerializeField] float MoveSpeed = 5f, JumpForce = 50f;
     PlayerControls controls;
 
     private void OnEnable()
@@ -51,7 +51,7 @@ public class PlayerBehavior : MonoBehaviour
             anim.SetBool("Running", true);
         }
 
-        if (controls.Player.Jump.WasPerformedThisFrame())
+        if (controls.Player.Jump.WasPerformedThisFrame() && IsGrounded())
         {
             rb.AddForce(Vector2.up * JumpForce, ForceMode2D.Impulse);
         }
@@ -67,15 +67,7 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rb.AddForce(MoveVector * MoveSpeed);
-        if (rb.velocity.x > MaxSpeed)
-        {
-            rb.velocity = new(MaxSpeed, rb.velocity.y);
-        }
-        else if (rb.velocity.x < -MaxSpeed)
-        {
-            rb.velocity = new(-MaxSpeed, rb.velocity.y);
-        }
+        rb.velocity = (new Vector2((MoveVector.x * MoveSpeed), rb.velocity.y));
     }
 
     [SerializeField] LayerMask platform;
