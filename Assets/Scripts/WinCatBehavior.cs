@@ -11,6 +11,7 @@ public class WinCatBehavior : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             SceneManager.LoadScene(4);
+            Global.levelTwoUnlocked = true;
         }
     }
 }
